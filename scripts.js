@@ -1,13 +1,13 @@
 
-    // Step 1: Create an h1 element
+    //Create an h1 element
     var h1Element = document.createElement("h1");
 
-    // Step 2 (Optional): Set text content
+    //Set text content
     h1Element.textContent = "Bruno Alves Martins";
     h1Element.style.textAlign = "center";
     h1Element.style.color = "#A9A9A9";
 
-    // Step 3: Append to the document body (or any other element)
+    //Append to the document body
     document.body.appendChild(h1Element);
 
     // Create the first number input element
