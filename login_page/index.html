@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Validation Page</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Password Validation</h2>
+    <form id="passwordForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <p id="message" class="validation-message"></p>
+
+      <button type="button" onclick="validatePassword()">Check Password</button>
+    </form>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
