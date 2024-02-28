@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+        <link rel="stylesheet" href="styles.css">  
+        <title>Assignment 1</title>
+      </head>
+    <body>
+
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/assignment_1/index.html">Home</a></li>
+                    <li><a href="/assignment_1/grade_converter/grade_converter.html">Mark To Grade Converter</a></li>
+                    <li><a href="/assignment_1/staff/staff.html">Staff</a></li>
+                    <li><a href="/assignment_1/weather/weather.html">Weather</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div id="content">
+            <h2>Profile</h2>
+            <img src="img/profile.jpeg" id="profile_img" alt="Bruno Martins photo profile">
+            <figcaption id="photo_description" style="display: none;">Bruno Martins</figcaption>
+        
+            <p>Hello, my name is Bruno. I am a student of Software Development course at Bow Valley College.</p>
+            <p>This is my first assignment of SODV1201 - Introduction to Web Development</p>
+        
+        </div>
+    
+        <footer>
+            <p>&copy; 
+                <script>
+                    // Get current year for copyright
+                    var year = new Date();
+                    document.write(year.getFullYear());
+                </script>
+                Bruno Martins. All rights reserved.
+            </p>
+        </footer>
+        <script>
+            // Add event listener for page load
+            document.addEventListener('DOMContentLoaded', () => {
+                // Get element references
+                let photoDescription = document.getElementById('photo_description');
+                let currentTime = new Date();
+                let currentSeconds = currentTime.getSeconds();
+
+                // Show photo description every 10 seconds
+                setInterval(() => {
+                    photoDescription.style.display = 'inline'; // Change display to visible
+                }, 10000); // 10000 milliseconds = 10 seconds
+            });
+        </script>
+    </body>
+</html>
