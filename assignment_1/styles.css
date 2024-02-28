@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+#content {
+    text-align: center;
+    margin-top: 20px;
+    display: grid;
+}
+
+#profile_img {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10%;
+}
+
+#photo_description {
+    display: none;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+#button_sort{
+    display: block;
+    margin-bottom: 15px;
+}
+
+#dataset_table{
+    margin-bottom: 100px;
+}
+
+footer {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    padding: 10px 0;
+}

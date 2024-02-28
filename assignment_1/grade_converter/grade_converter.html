@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
+        <link rel="stylesheet" href="../styles.css">  
+        <title>Assignment 1</title>
+      </head>
+    <body>
+
+        <!-- Navigation Header -->
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="/assignment_1/index.html">Home</a></li>
+                    <li><a href="/assignment_1/grade_converter/grade_converter.html">Mark To Grade Converter</a></li>
+                    <li><a href="/assignment_1/staff/staff.html">Staff</a></li>
+                    <li><a href="/assignment_1/weather/weather.html">Weather</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main content area -->
+        <div id="content">
+            <h2>Mark to Grade Converter</h2>
+            <form action="">
+                <label for="grade">Grade:</label>
+                <input type="text" id="grade" name="grade" required>
+                <button type="button" id="convert_button">Convert</button>
+            </form>
+            <!-- Result paragraph will be added here dynamically -->
+        </div>
+
+        <!-- Footer with Copyright -->
+        <footer>
+            <p>&copy; 
+                <script>var year = new Date(); document.write(year.getFullYear());</script> Bruno Martins. All rights reserved.
+            </p>
+        </footer>
+
+        <!-- Script section -->
+        <script>
+            // Create a paragraph element for displaying the result
+            let resultParagraph = document.createElement("p");
+
+            // Get the convert button element by its ID
+            var converterButton = document.getElementById('convert_button');
+
+            // Add an event listener to the button for calculating the grade and validating inputs
+            converterButton.addEventListener("click", function() {
+                // Validate and get value from the input element
+                let inputElement = document.getElementById('grade');
+                let grade = validateAndGetNumber(inputElement);
+
+                if (!isNaN(grade)) {
+                    if (grade < 0) {
+                        resultParagraph.textContent = "Your grade should be a positive number!";
+                        inputElement.style.borderColor = "red";
+                    } else if (grade > 100) {
+                        resultParagraph.textContent = "Your grade should be less than 101!";
+                        inputElement.style.borderColor = "red";
+                    } else {
+                        resultParagraph.textContent = gradeConverter(grade);
+                    }
+                } else {
+                    resultParagraph.textContent = "Your grade should be a number!";
+                    inputElement.style.borderColor = "red";
+                }
+
+                // Append the result paragraph to the content div
+                var contentDiv = document.getElementById('content');
+                contentDiv.appendChild(resultParagraph);
+            });
+
+            // Arrow function to validate and get a number from an input element
+            var validateAndGetNumber = (inputElement) => {
+                try {
+                    var value = parseFloat(inputElement.value);
+
+                    if (isNaN(value)) {
+                        // Set border color to red
+                        inputElement.style.borderColor = "red";
+
+                        // Throw an error to stop further execution
+                        throw new Error("Invalid input");
+                    }
+
+                    // Reset border color and any previous error messages
+                    inputElement.style.borderColor = "";
+
+                    return value;
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+
+            // Function to convert grade to letter grade
+            function gradeConverter(grade) {
+                if (grade >= 90) {
+                    return "Grade A";
+                } else if (grade >= 80 && grade < 90) {
+                    return "Grade B";
+                } else if (grade >= 70 && grade < 80) {
+                    return "Grade C";
+                } else if (grade >= 50 && grade < 70) {
+                    return "Grade D";
+                } else {
+                    return "Grade E";
+                }
+            }
+        </script>
+    </body>
+</html>
