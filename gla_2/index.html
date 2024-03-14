@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>GLA 2</title>
+</head>
+<body>
+    <!-- Main content area -->
+    <div id="content">
+        <h2>Fake Store</h2>
+        <label for="category">Select a category:</label>
+        <select id="category" onchange="filterByCategory()">
+            <option value="all">All</option>
+            <option value="men's clothing">Men's Clothing</option>
+            <option value="jewelery">Jewelery</option>
+            <option value="electronics">Electronics</option>
+            <option value="women's clothing">Women's Clothing</option>
+        </select>
+    
+        <!-- Container for products -->
+        <div id="products"></div>
+
+        <!-- Buttons for sorting -->
+        <div id="button_sort">
+            <button onclick="sortAscending()">Sort by Ascending</button>
+            <button onclick="sortDescending()">Sort by Descending</button>
+        </div>
+
+        <!-- Container for the table -->
+        <div id="table_div"></div>
+    </div>
+
+    <script>        
+    let dataSet, dataset_table = []; // Define an empty array to store the fetched data
+
+    // Fetch data from the API
+    function fetchData() {
+        return fetch('https://fakestoreapi.com/products')
+            .then(res => res.json())
+            .then(json => {
+                // Update the dataSet array with the fetched data
+                dataSet = json;
+                // Update the dataTable array with the fetched data 
+                dataTable = json;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
+    // Sort the data in ascending order
+    function sortAscending() {
+        dataTable.sort((a, b) => a.id - b.id);
+        updateTable(dataTable);
+    }
+
+    // Sort the data in descending order
+    function sortDescending() {
+        dataTable.sort((a, b) => b.id - a.id);
+        updateTable(dataTable);
+    }
+
+    // Filter the data by category
+    function filterByCategory() {
+        var category = document.getElementById("category").value;
+        if (category === "all") {
+            updateTable(dataSet);
+        } else {
+            dataTable = dataSet.filter(item => item.category.toLowerCase() === category);
+            updateTable(dataTable);
+        }
+    }
+
+    // Create the table with the data
+    function createTable(dataTable) {
+        var tableDiv = document.getElementById('table_div');
+        var table = document.createElement("table");
+        table.setAttribute('id', 'dataset_table');
+        table.border = "1";
+        document.body.appendChild(table);
+
+        // Create table header
+        var header = ["ID", "Title", "Price", "Description", "Category", "Image", "Rating"];
+        var headerRow = table.insertRow();
+        for (var i = 0; i < header.length; i++) {
+            var headerCell = document.createElement("th");
+            headerCell.textContent = header[i];
+            headerRow.appendChild(headerCell);
+        }
+
+        // Create table rows and cells
+        for (var i = 0; i < dataTable.length; i++) {
+            var row = table.insertRow();
+            for (var j = 0; j < header.length; j++) {
+                var cell = row.insertCell();
+                if (header[j] === "Image") {
+                    var img = document.createElement('img');
+                    img.src = dataTable[i][header[j].toLowerCase()];
+                    img.style.maxWidth = '100px';
+                    cell.appendChild(img);
+                }
+                else if(header[j] === 'Rating'){
+                    var rating = dataTable[i][header[j].toLowerCase()];
+                    var rate = rating.rate;
+                    var count = rating.count;
+                    var ratingElement = document.createElement('p');
+                    ratingElement.textContent = 'Rate: ' + rate + ', Count: ' + count;
+                    cell.appendChild(ratingElement);
+                } 
+                else {
+                    cell.textContent = dataTable[i][header[j].toLowerCase()];
+                }
+            }
+        }
+        tableDiv.appendChild(table);
+    }
+
+    // Update the table with new data
+    function updateTable(data) {
+        // Remove the existing table
+        var element = document.getElementById("dataset_table");
+        if (element) {
+            element.remove();
+        }
+        createTable(data);
+    }
+
+    // Event listener to fetch and create the initial table when the document is fully loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchData().then(() => {
+            createTable(dataTable);
+        });
+    });
+
+    </script>
+</body>
+</html>
